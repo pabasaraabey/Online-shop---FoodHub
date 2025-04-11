@@ -4,20 +4,27 @@ import { Route, Routes,useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import { Toaster } from 'react-hot-toast'
 import Footer from './components/footer'
+import Login from './components/Login'
+import { useAppContext } from './context/AppContext'
+import AllProducts from './pages/AllProducts'
+
 
 const App = () => {
 
   const isSellerpath = useLocation().pathname.includes('/seller')
+  const {showUserLogin} = useAppContext()
   return (
     <div>
 
       {isSellerpath ? null :<Navbar />}
+      {showUserLogin ? <Login /> : null}
 
       <Toaster />
 
       <div className={'${isSellerpath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}'}>
         <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/products' element={<AllProducts/>}/>
         </Routes>
       </div>
       {!isSellerpath && <Footer />}
